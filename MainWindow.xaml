@@ -1,0 +1,1413 @@
+﻿<Window
+    x:Class="CompInfo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompInfo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    mc:Ignorable="d"
+   >
+
+    <Grid Name="Das" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ContentDialog x:Name="joinbeta" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+           PrimaryButtonText="Join" PrimaryButtonClick="joinbeta_PrimaryButtonClick" IsPrimaryButtonEnabled="False"
+                       DefaultButton="Primary" RequestedTheme="Default"
+           CloseButtonText="Cancel" >
+            <ContentDialog.TitleTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\bnara\Documents\OceanCyan Tech\CompInfo\Resources\CompInfoBetaIcon.png" Width="40" Height="40" Margin="0, 0, 0,0"/>
+                        <TextBlock Text="CompInfo Beta" Margin ="10, 0, 0, 0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentDialog.TitleTemplate>
+            <StackPanel>
+                <TextBlock TextWrapping="WrapWholeWords" Text="Try out beta versions of CompInfo Beta with new and upcoming features and providing your feedback will help us improve this app. Beta Builds might be unstable and buggy">
+                </TextBlock>
+                <CheckBox x:Name="ConfirmAgeCheckBox" Content="I accept receiving email notifications for newly released Beta Builds"
+              Checked="ConfirmAgeCheckBox_Checked" Margin="0, 10, 0, 0 " Unchecked="ConfirmAgeCheckBox_Unchecked"/>
+            </StackPanel>
+        </ContentDialog>
+        <NavigationView x:Name="nvSample"  IsSettingsVisible="True"
+    IsBackButtonVisible="Collapsed"
+ IsBackEnabled="True"
+                        PaneTitle="CompInfo Preview"
+                        Visibility="Collapsed"
+                        BackRequested="nvSample_BackRequested"
+                        ItemInvoked="nvSample_ItemInvoked"
+    SelectionChanged="nvSample_SelectionChanged"
+    Header="CompInfo"
+    AlwaysShowHeader="True"
+    PaneDisplayMode="LeftCompact"
+    ExpandedModeThresholdWidth="500"
+    SelectionFollowsFocus="Disabled"
+    IsTabStop="False">
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox Name="SearchNavig" QuerySubmitted="AutoSuggestBox_QuerySubmitted" PlaceholderText="Search for PC info..." SuggestionChosen="AutoSuggestBox_SuggestionChosen" TextChanged="AutoSuggestBox_TextChanged" QueryIcon="Find"  AutomationProperties.Name="Search" />
+            </NavigationView.AutoSuggestBox>
+            <NavigationView.MenuItems>
+                <NavigationViewItem Name="SysSum" Content="Computer Summary" Tag="syssum">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8FD;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Name="SysHard" Content="Hardware Info" Tag="hard">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE977;"/>
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Name="HardCPU" Content="CPU" ToolTipService.ToolTip="Processor Info" Tag="cpuinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE950;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardGPU" Content="GPU" ToolTipService.ToolTip="Display and Graphics Info" Tag="gpuinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE7FC;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardRAM" Content="RAM" ToolTipService.ToolTip="Random Access Memory Info" Tag="raminfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE964;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardInputDevices" Content="Input Devices" ToolTipService.ToolTip="Keyboard and Mouse Info" Tag="idinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE961;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardStorageDevices" Content="Storage Devices" ToolTipService.ToolTip="Storage Info" Tag="sdinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE7F1;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardNetwork" Content="Network" ToolTipService.ToolTip="Network Info" Tag="netinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE968;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardPrinting" Content="Printing" ToolTipService.ToolTip="Printer Info" Tag="printinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE749;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardSound" Content="Sound" ToolTipService.ToolTip="Sound Info" Tag="printinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE995;" />
+
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="HardMotherBoard" Content="Logic Board" ToolTipService.ToolTip="Motherboard Info" Tag="mbinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xEC4E;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+                <NavigationViewItem Name="SysSoft" Content="Software Info" Tag="Salah">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE943;"/>
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Name="osinfoo" Content="OS Info" ToolTipService.ToolTip="Operating System Info" Tag="osinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xEDA2;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="SoftDrivers" Content="Drivers" ToolTipService.ToolTip="System Driver Info" Tag="sysdrinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE88E;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="SoftServices" Content="Services" ToolTipService.ToolTip="System Service Info" Tag="sysserinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE9F5;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="SoftProcesses" Content="Processes" ToolTipService.ToolTip="Processes Info" Tag="sysprocinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE9D9;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Name="SoftPrintJobs" Content="Print Jobs" ToolTipService.ToolTip="Printer Jobs" Tag="printjobinfo">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xF56D;"/>
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+                <NavigationViewItem Name="SysOS" Content="OS Info" Tag="osinfo">
+                    <NavigationViewItem.Icon>
+                        <FontIcon  Glyph="&#xEDA2;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Frame x:Name="contentFrame" Navigated="contentFrame_Navigated" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <Grid x:Name="Main">
+                        <Grid x:Name="settingspanel" Visibility="Visible">
+                            <TextBlock x:Name="themelbl" Margin="50,10,0,0" TextWrapping="Wrap" Text="Theme" VerticalAlignment="Top" FontSize="24"/>
+                            <RadioButton Name="Dark" Checked="RadioButton_Checked" Content="Dark" Margin="50,54,0,0" VerticalAlignment="Top" FontSize="16"/>
+                            <RadioButton Name="Light" Checked="RadioButton_Checked_1" Content="Light" Margin="50,91,0,0" VerticalAlignment="Top" FontSize="16"/>
+                            <RadioButton Name="Default" Checked="RadioButton_Checked_2" Content="System Default" Margin="50,128,0,0" VerticalAlignment="Top" FontSize="16"/>
+                            <TextBlock x:Name="themelbl_Copy"  Margin="50,190,0,0" TextWrapping="Wrap" Text="Default Load Page" VerticalAlignment="Top" FontSize="24"/>
+                            <ComboBox Name="DefaultLoad" SelectionChanged="DefaultLoad_SelectionChanged" Margin="50,234,0,0" Width="282">
+                                <ComboBoxItem Content="Computer Summary"/>
+                                <ComboBoxItem Content="Hardware Info"/>
+                                <ComboBoxItem Content="Software Info"/>
+                                <ComboBoxItem Content="OS Info"/>
+                            </ComboBox>
+                            <TextBlock x:Name="te"  Margin="50,310,0,0" TextWrapping="Wrap" Text="Navigation Style" VerticalAlignment="Top" FontSize="24"/>
+                            <ComboBox Name="MenuAlignment" SelectionChanged="MenuAlignment_SelectionChanged" Margin="50,354,0,0" Width="282">
+                                <ComboBoxItem Content="Top"/>
+                                <ComboBoxItem Content="Left Compact"/>
+                            </ComboBox>
+                            <TextBlock x:Name="themelbl_Copy1" HorizontalAlignment="Left" Margin="50,410,0,0" TextWrapping="Wrap" Text="About" VerticalAlignment="Top" FontSize="24"/>
+                            <TextBlock x:Name="lbl" HorizontalAlignment="Left" Margin="50,517,0,0" Text="View and copy advanced technical information about your computer! " VerticalAlignment="Top"/>
+                            <TextBlock x:Name="lb2" HorizontalAlignment="Left" Margin="50,547,0,0" Text="This app is a modern version of the classic win32 System Information." VerticalAlignment="Top"/>
+                            <Button x:Name="abtbtn" Click="abtbtn_Click" HorizontalAlignment="Left" Margin="50,467,0,0" Style="{StaticResource AccentButtonStyle}" Content="About" VerticalAlignment="Top"/>
+                            <ContentDialog x:Name="aboutdialog" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+           PrimaryButtonText="OK" IsPrimaryButtonEnabled="True"
+                       DefaultButton="Primary" RequestedTheme="Default"
+           CloseButtonText="Cancel">
+                                <ContentDialog.TitleTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="C:\Users\bnara\Documents\OceanCyan Tech\CompInfo\Resources\CompInfoIcon.png" Width="40" Height="40" Margin="0, 0, 0,0"/>
+                                            <TextBlock Text="About CompInfo" Margin ="10, 0, 0, 0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ContentDialog.TitleTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock TextWrapping="WrapWholeWords" Text="CompInfo Version 1.0.0"/>
+                                    <TextBlock TextWrapping="WrapWholeWords" Text="Build 920522"/>
+                                    <TextBlock TextWrapping="WrapWholeWords" Text="© OceanCyan Tech"/>
+                                </StackPanel>
+                            </ContentDialog>
+                            <HyperlinkButton Content="Help" Margin="40,578,0,0" VerticalAlignment="Top"/>
+                            <HyperlinkButton Content="Contribute" Margin="40,615,0,0" VerticalAlignment="Top"/>
+                            <TextBlock x:Name="theddmelbl_Copy1" HorizontalAlignment="Left" Margin="50,690,0,0" TextWrapping="Wrap" Text="CompInfo Beta" VerticalAlignment="Top" FontSize="24"/>
+                            <Button x:Name="joindevpre" Content="Join CompInfo Beta" Click="joindevpre_Click" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Left" Margin="50,750,0,0"  VerticalAlignment="Top"/>
+                            <HyperlinkButton Content="Feedback" Margin="40,795,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                        <Grid x:Name="osinfo" Visibility="Collapsed">
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="OS Name:"  Foreground="Gray"  VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="Osname"  HorizontalAlignment="Left" Margin="136,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn1" ToolTipService.ToolTip="Copy" Click="cpybtn1_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="OS Version:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="Osver"  HorizontalAlignment="Left" Margin="136,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn2" ToolTipService.ToolTip="Copy" Click="cpybtn2_Click" HorizontalAlignment="Left" Margin="536,70,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,108,0,0" TextWrapping="Wrap" Text="OS Developer:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="Osdev"  HorizontalAlignment="Left" Margin="156,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn3" ToolTipService.ToolTip="Copy" Click="cpybtn3_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,148,0,0" TextWrapping="Wrap" Text="System Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="pcname"  HorizontalAlignment="Left" Margin="156,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn4" ToolTipService.ToolTip="Copy" Click="cpybtn4_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,188,0,0" TextWrapping="Wrap" Text="OS Architecture:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="Osarch"  HorizontalAlignment="Left" Margin="176,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn5" ToolTipService.ToolTip="Copy" Click="cpybtn5_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,228,0,0" TextWrapping="Wrap" Text="Build Type:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="Buildtype"  HorizontalAlignment="Left" Margin="126,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn6" ToolTipService.ToolTip="Copy" Click="cpybtn6_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,268,0,0" TextWrapping="Wrap" Text="Registered User:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="regist"  HorizontalAlignment="Left" Margin="166,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn7" ToolTipService.ToolTip="Copy" Click="cpybtn7_Click" HorizontalAlignment="Left" Margin="536,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,308,0,0" TextWrapping="Wrap" Text="System Directory:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="sysdirec"  HorizontalAlignment="Left" Margin="176,310,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn8" ToolTipService.ToolTip="Copy" Click="cpybtn8_Click" HorizontalAlignment="Left" Margin="536,310,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Button Name="explrsbtn1" ToolTipService.ToolTip="Open in File Explorer" Click="explrbtn1_Click" HorizontalAlignment="Left" Margin="493,310,0,0" FontFamily="Segoe Fluent Icons" Content="&#xEC50;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid x:Name="raminfo" Visibility="Collapsed">
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Total Physical RAM:"  Foreground="Gray"  VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="TOTALRam"  HorizontalAlignment="Left" Margin="196,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn15" ToolTipService.ToolTip="Copy" Click="cpybtn15_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Available Physical RAM:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="AVAILRam"  HorizontalAlignment="Left" Margin="234,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn16" ToolTipService.ToolTip="Copy" Click="cpybtn16_Click" HorizontalAlignment="Left" Margin="536,70,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,108,0,0" TextWrapping="Wrap" Text="Total Virtual RAM:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="TOTALViRam"  HorizontalAlignment="Left" Margin="186,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn17" ToolTipService.ToolTip="Copy" Click="cpybtn17_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,148,0,0" TextWrapping="Wrap" Text="Available Virtual RAM:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="AVAILViRam"  HorizontalAlignment="Left" Margin="216,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn18" ToolTipService.ToolTip="Copy" Click="cpybtn18_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,188,0,0" TextWrapping="Wrap" Text="Memory Page Size:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="MemPageSize"  HorizontalAlignment="Left" Margin="196,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn19" ToolTipService.ToolTip="Copy" Click="cpybtn19_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Button Name="restartbtn1" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn1_Click" HorizontalAlignment="Left" Margin="17,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid x:Name="cpuinfo" Visibility="Collapsed">
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="CPU Name:"  Foreground="Gray"  VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="CPUName"  HorizontalAlignment="Left" Margin="126,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn20" ToolTipService.ToolTip="Copy" Click="cpybtn20_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="CPU Manufacturer:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="CPUManufacturer"  HorizontalAlignment="Left" Margin="194,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn21" ToolTipService.ToolTip="Copy" Click="cpybtn21_Click" HorizontalAlignment="Left" Margin="536,70,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,108,0,0" TextWrapping="Wrap" Text="Logical Processors:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="LogicProcessors"  HorizontalAlignment="Left" Margin="186,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn22" ToolTipService.ToolTip="Copy" Click="cpybtn22_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,148,0,0" TextWrapping="Wrap" Text="Cores:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="Cores"  HorizontalAlignment="Left" Margin="76,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn23" ToolTipService.ToolTip="Copy" Click="cpybtn23_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Button Name="restartbtn2" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn2_Click" HorizontalAlignment="Left" Margin="17,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid x:Name="soundinfo" Visibility="Collapsed">
+                            <TextBlock Name="SoundDeviceHeader" HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Sound Device Unknown"  VerticalAlignment="Top" FontSize="20" />
+                            <ComboBox Name="ListSoundDevs" SelectionChanged="ListSoundDevs_SelectionChanged" HorizontalAlignment="Left" Margin="18,28,0,0" Text="Sound Device Unknown"  VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,110,0,0" TextWrapping="Wrap" Text="Name: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="soundname"  HorizontalAlignment="Left" Margin="86,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn24" ToolTipService.ToolTip="Copy" Click="cpybtn24_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,150,0,0" TextWrapping="Wrap" Text="Manufacturer: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="soundmanufacturer"  HorizontalAlignment="Left" Margin="154,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn25" ToolTipService.ToolTip="Copy" Click="cpybtn25_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,190,0,0"  Text="Device ID:" TextWrapping="NoWrap" MaxLines="1"  Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="sounddevid" Width="290"  Canvas.ZIndex="0"  HorizontalAlignment="Left" Margin="120,195,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="14" />
+                            <Button Name="cpybtn26" ToolTipService.ToolTip="Copy" Click="cpybtn26_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,230,0,0" TextWrapping="Wrap" Text="Description:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock IsTextSelectionEnabled="True" Name="sounddescription"  HorizontalAlignment="Left" Margin="126,232,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn27" ToolTipService.ToolTip="Copy" Click="cpybtn27_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Button Name="restartbtn3" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn3_Click" HorizontalAlignment="Left" Margin="17,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16"/>
+                        </Grid>
+                        <Grid x:Name="syssummary" Visibility="Collapsed">
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="OS Name:"  Foreground="Gray"  VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="osname"  HorizontalAlignment="Left" Margin="136,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn9" ToolTipService.ToolTip="Copy" Click="cpybtn9_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Processor:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="processor"  HorizontalAlignment="Left" Margin="136,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn10" ToolTipService.ToolTip="Copy" Click="cpybtn10_Click" HorizontalAlignment="Left" Margin="536,70,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,108,0,0" TextWrapping="Wrap" Text="Installed Memory (RAM):" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="ram"  HorizontalAlignment="Left" Margin="256,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn11" ToolTipService.ToolTip="Copy" Click="cpybtn11_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,148,0,0" TextWrapping="Wrap" Text="System Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="sysname"  HorizontalAlignment="Left" Margin="156,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn12" ToolTipService.ToolTip="Copy" Click="cpybtn12_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,188,0,0" TextWrapping="Wrap" Text="OS Architecture:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="osarc"  HorizontalAlignment="Left" Margin="176,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn13" ToolTipService.ToolTip="Copy" Click="cpybtn13_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,228,0,0" TextWrapping="Wrap" Text="Graphics (GPU):" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="gpusummary"  HorizontalAlignment="Left" Margin="166,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn14" ToolTipService.ToolTip="Copy" Click="cpybtn14_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </Grid>
+                        <GridView x:Name="hardwaree" Visibility="Collapsed">
+                            <Button  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click_4" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE950;  "/>
+                                    <TextBlock Text="CPU"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  VerticalAlignment="Stretch" Click="Button_Click_13" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE7FC;  "/>
+                                    <TextBlock Text="GPU"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  VerticalAlignment="Stretch" Click="Button_Click_3" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE964;  "/>
+                                    <TextBlock Text="RAM"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  VerticalAlignment="Stretch" Click="Button_Click_9" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE961;  "/>
+                                    <TextBlock Text="Input Devices"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_11"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE7F1;  "/>
+                                    <TextBlock Text="Storage Devices"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_14"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE968;  "/>
+                                    <TextBlock Text="Network"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  VerticalAlignment="Stretch" Click="Button_Click_12" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE749;  "/>
+                                    <TextBlock Text="Printing"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  VerticalAlignment="Stretch" Click="Button_Click_5" ToolTipService.ToolTip="Info about the Sound Speaker and its device identity" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE15D;  "/>
+                                    <TextBlock Text="Sound"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  VerticalAlignment="Stretch" Click="Button_Click_15" ToolTipService.ToolTip="Info about the Motherboard and the BIOS" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xEC4E;  "/>
+                                    <TextBlock Text="Logic Board"/>
+                                </StackPanel>
+                            </Button>
+                        </GridView>
+                        <GridView x:Name="softwaree" Visibility="Collapsed">
+                            <Button Click="Button_Click_16"  VerticalAlignment="Stretch" ToolTipService.ToolTip="Info about the installed system drivers" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE7FC;  "/>
+                                    <TextBlock Text="Drivers"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_17" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ToolTipService.ToolTip="Info about various Windows Services and their status" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE9F5;  "/>
+                                    <TextBlock Text="Services"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_18"  VerticalAlignment="Stretch" ToolTipService.ToolTip="Info about the current processes and tasks" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xE9D9;  "/>
+                                    <TextBlock Text="Processes"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_20"  VerticalAlignment="Stretch" ToolTipService.ToolTip="Info about the current print jobs in queue" HorizontalAlignment="Stretch" Width="190" Height="100" Margin="5,5,5,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" FontFamily="Segoe Fluent Icons" Text="&#xF56D;  "/>
+                                    <TextBlock Text="Print Jobs"/>
+                                </StackPanel>
+                            </Button>
+                        </GridView>
+                        <Grid x:Name="inputdevicesinfo" Visibility ="Collapsed">
+                            <NavigationView x:Name="inputdevicestabs" PaneDisplayMode="LeftCompact"
+    SelectionFollowsFocus="Enabled" SelectionChanged="inputdevicestabs_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" Margin="40, 0, 0, 0">
+                                <NavigationView.MenuItems>
+                                    <NavigationViewItem Content="Keyboard" x:Name="KEYBoardid">
+                                        <NavigationViewItem.Icon>
+                                            <FontIcon Glyph="&#xE087;" FontFamily="Segoe Fluent Icons"/>
+                                        </NavigationViewItem.Icon>
+                                    </NavigationViewItem>
+                                    <NavigationViewItem Content="Pointing Devices" x:Name="Mouseid" >
+                                        <NavigationViewItem.Icon>
+                                            <FontIcon Glyph="&#xE962;" FontFamily="Segoe Fluent Icons"/>
+                                        </NavigationViewItem.Icon>
+                                    </NavigationViewItem>
+                                </NavigationView.MenuItems>
+                                <Frame x:Name="content2Frame">
+                                    <Grid>
+                                        <Grid x:Name="KeyboardInfo" Visibility="Collapsed">
+                                            <TextBlock Name="KeyboardDeviceHeader" HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Keyboard Device Unknown"  VerticalAlignment="Top" FontSize="20" />
+                                            <ComboBox Name="ListKeyboardDevs" SelectionChanged="ListKeyboardDevs_SelectionChanged" HorizontalAlignment="Left" Margin="18,28,0,0" Text="Sound Device Unknown"  VerticalAlignment="Top"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,110,0,0" TextWrapping="Wrap" Text="Description: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="keyboarddescription"  HorizontalAlignment="Left" Margin="126,113,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn28" ToolTipService.ToolTip="Copy" Click="cpybtn28_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout>
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,150,0,0" TextWrapping="Wrap" Text="Name: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="keybaordname"  HorizontalAlignment="Left" Margin="84,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn29" ToolTipService.ToolTip="Copy" Click="cpybtn29_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,190,0,0"  Text="Device ID:" TextWrapping="NoWrap" MaxLines="1"  Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="keyboarddevid" Width="290"  Canvas.ZIndex="0"  HorizontalAlignment="Left" Margin="110,195,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="14" />
+                                            <Button Name="cpybtn30" ToolTipService.ToolTip="Copy" Click="cpybtn30_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,230,0,0" TextWrapping="Wrap" Text="Layout:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="keyboardlayout"  HorizontalAlignment="Left" Margin="86,233,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn31" ToolTipService.ToolTip="Copy" Click="cpybtn31_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,270,0,0" TextWrapping="Wrap" Text="Number of function keys:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="keyboardfnkeys"  HorizontalAlignment="Left" Margin="246,273,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn32" ToolTipService.ToolTip="Copy" Click="cpybtn32_Click" HorizontalAlignment="Left" Margin="536,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <Button Name="restartbtn4" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn4_Click" HorizontalAlignment="Left" Margin="17,310,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16"/>
+                                        </Grid>
+                                        <Grid x:Name="PDInfo" Visibility="Visible">
+                                            <TextBlock Name="PDeviceHeader" HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Pointing Device Unknown"  VerticalAlignment="Top" FontSize="20" />
+                                            <ComboBox Name="ListPointingDevs" SelectionChanged="ListPointingDevs_SelectionChanged" HorizontalAlignment="Left" Margin="18,28,0,0" Text="Sound Device Unknown"  VerticalAlignment="Top"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,110,0,0" TextWrapping="Wrap" Text="Device Type: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="pdtype"  HorizontalAlignment="Left" Margin="136,113,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn33" ToolTipService.ToolTip="Copy" Click="cpybtn33_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout>
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,150,0,0" TextWrapping="Wrap" Text="Name: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="pdname"  HorizontalAlignment="Left" Margin="84,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn34" ToolTipService.ToolTip="Copy" Click="cpybtn34_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,190,0,0"  Text="Device ID:" TextWrapping="NoWrap" MaxLines="1"  Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="pointingdevid" Width="290"  Canvas.ZIndex="0"  HorizontalAlignment="Left" Margin="120,195,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="14" />
+                                            <Button Name="cpybtn35" ToolTipService.ToolTip="Copy" Click="cpybtn35_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,230,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="pdstatus"  HorizontalAlignment="Left" Margin="80,233,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn36" ToolTipService.ToolTip="Copy" Click="cpybtn36_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,270,0,0" TextWrapping="Wrap" Text="Number of buttons:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="pdbuttons"  HorizontalAlignment="Left" Margin="196,273,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn37" ToolTipService.ToolTip="Copy" Click="cpybtn37_Click" HorizontalAlignment="Left" Margin="536,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <Button Name="restartbtn5" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn5_Click" HorizontalAlignment="Left" Margin="17,310,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16"/>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </NavigationView>
+                        </Grid>
+                        <Grid x:Name="storagedevicesinfo" Visibility ="Collapsed">
+                            <NavigationView x:Name="storagedevicestabs" PaneDisplayMode="LeftCompact"
+    SelectionFollowsFocus="Enabled" SelectionChanged="storagedevicestabs_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" Margin="0, 0, 0, 0">
+                                <NavigationView.MenuItems>
+                                    <NavigationViewItem Content="Disks" x:Name="diskssd" >
+                                        <NavigationViewItem.Icon>
+                                            <FontIcon Glyph="&#xF20F;" FontFamily="Calculator Fluent Icons"/>
+                                        </NavigationViewItem.Icon>
+                                    </NavigationViewItem>
+                                    <NavigationViewItem Content="Drives" x:Name="drivessd" >
+                                        <NavigationViewItem.Icon>
+                                            <FontIcon Glyph="&#xEDA2;"/>
+                                        </NavigationViewItem.Icon>
+                                    </NavigationViewItem>
+                                </NavigationView.MenuItems>
+                                <Frame x:Name="content3Frame">
+                                    <Grid>
+                                        <Grid x:Name="DisksInfo" Visibility="Collapsed">
+                                            <TextBlock Name="DiskHeader" HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Disk Device Unknown"  VerticalAlignment="Top" FontSize="20" />
+                                            <ComboBox Name="ListDiskDevs" SelectionChanged="ListDiskDevs_SelectionChanged" HorizontalAlignment="Left" Margin="18,28,0,0" Text="Storage Device Unknown"  VerticalAlignment="Top"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,110,0,0" TextWrapping="Wrap" Text="Description: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="diskdescription"  HorizontalAlignment="Left" Margin="126,113,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn38" ToolTipService.ToolTip="Copy" Click="cpybtn38_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout>
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,150,0,0" TextWrapping="Wrap" Text="Disk Model: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="diskmodel"  HorizontalAlignment="Left" Margin="129,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn39" ToolTipService.ToolTip="Copy" Click="cpybtn39_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,190,0,0"  Text="Device ID:" TextWrapping="NoWrap" MaxLines="1"  Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="diskdevid" Width="290"  Canvas.ZIndex="0"  HorizontalAlignment="Left" Margin="120,195,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="14" />
+                                            <Button Name="cpybtn40" ToolTipService.ToolTip="Copy" Click="cpybtn40_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,230,0,0" TextWrapping="Wrap" Text="Bytes per sector:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="bypesse"  HorizontalAlignment="Left" Margin="166,233,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn41" ToolTipService.ToolTip="Copy" Click="cpybtn41_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,270,0,0" TextWrapping="Wrap" Text="Manufacturer:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="manufacturerdisk"  HorizontalAlignment="Left" Margin="146,273,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn42" ToolTipService.ToolTip="Copy" Click="cpybtn42_Click" HorizontalAlignment="Left" Margin="536,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,310,0,0" TextWrapping="Wrap" Text="Total Disk Size:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="totaldisksize"  HorizontalAlignment="Left" Margin="150,313,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn43" ToolTipService.ToolTip="Copy" Click="cpybtn43_Click" HorizontalAlignment="Left" Margin="536,310,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,350,0,0" TextWrapping="Wrap" Text="Media Type:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="mediatype"  HorizontalAlignment="Left" Margin="130,353,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn44" ToolTipService.ToolTip="Copy" Click="cpybtn44_Click" HorizontalAlignment="Left" Margin="536,350,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,390,0,0" TextWrapping="Wrap" Text="Number of Partitions:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="noofpart"  HorizontalAlignment="Left" Margin="216,393,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn45" ToolTipService.ToolTip="Copy" Click="cpybtn45_Click" HorizontalAlignment="Left" Margin="536,390,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,430,0,0" TextWrapping="Wrap" Text="Total Disk Cylinders:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="totaldiskcyl"  HorizontalAlignment="Left" Margin="196,433,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn46" ToolTipService.ToolTip="Copy" Click="cpybtn46_Click" HorizontalAlignment="Left" Margin="536,430,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,470,0,0" TextWrapping="Wrap" Text="Total Disk Sectors:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="disksectors"  HorizontalAlignment="Left" Margin="186,473,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn47" ToolTipService.ToolTip="Copy" Click="cpybtn47_Click" HorizontalAlignment="Left" Margin="536,470,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,510,0,0" TextWrapping="Wrap" Text="Total Disk Tracks:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="disktracks"  HorizontalAlignment="Left" Margin="170,513,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn48" ToolTipService.ToolTip="Copy" Click="cpybtn48_Click" HorizontalAlignment="Left" Margin="536,510,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,550,0,0" TextWrapping="Wrap" Text="SCSI Bus:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="scsibus"  HorizontalAlignment="Left" Margin="106,553,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn49" ToolTipService.ToolTip="Copy" Click="cpybtn49_Click" HorizontalAlignment="Left" Margin="536,550,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,590,0,0" TextWrapping="Wrap" Text="SCSI Port:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="scsiport"  HorizontalAlignment="Left" Margin="106,593,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn50" ToolTipService.ToolTip="Copy" Click="cpybtn50_Click" HorizontalAlignment="Left" Margin="536,590,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <Button Name="restartbtn6" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn6_Click" HorizontalAlignment="Left" Margin="17,650,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16"/>
+                                        </Grid>
+                                        <Grid x:Name="DrivesInfo" Visibility="Collapsed">
+                                            <ProgressBar Name="drivesizeoccupy" Margin="17, 320, 0, 0" Width="390" HorizontalAlignment="Left" VerticalAlignment="Top"></ProgressBar>
+                                            <TextBlock Name="DriveHeader" HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Logical Disk Unknown"  VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="usedspace" HorizontalAlignment="Left" Margin="17,328,0,0" TextWrapping="Wrap" Foreground="Gray" FontSize="14" Text="290 GB used"  VerticalAlignment="Top"/>
+                                            <ComboBox Name="ListLDDevs" SelectionChanged="ListLDDevs_SelectionChanged" HorizontalAlignment="Left" Margin="18,28,0,0" Text="Logical Disk Unknown"  VerticalAlignment="Top"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,110,0,0" TextWrapping="Wrap" Text="Drive Letter: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driveletter"  HorizontalAlignment="Left" Margin="130,113,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn51" ToolTipService.ToolTip="Copy" Click="cpybtn51_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout>
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,150,0,0" TextWrapping="Wrap" Text="Drive Size: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="drivesize"  HorizontalAlignment="Left" Margin="115,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn52" ToolTipService.ToolTip="Copy" Click="cpybtn52_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,190,0,0"  Text="Available Space:" TextWrapping="NoWrap" MaxLines="1"  Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="availspace" Width="290"  Canvas.ZIndex="0"  HorizontalAlignment="Left" Margin="165,193,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn53" ToolTipService.ToolTip="Copy" Click="cpybtn53_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,230,0,0" TextWrapping="Wrap" Text="File System:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="filesystem"  HorizontalAlignment="Left" Margin="126,233,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn54" ToolTipService.ToolTip="Copy" Click="cpybtn54_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <TextBlock HorizontalAlignment="Left" Margin="18,270,0,0" TextWrapping="Wrap" Text="Volume Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock IsTextSelectionEnabled="True" Name="volumename"  HorizontalAlignment="Left" Margin="156,273,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                                            <Button Name="cpybtn55" ToolTipService.ToolTip="Copy" Click="cpybtn55_Click" HorizontalAlignment="Left" Margin="536,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                                <Button.Flyout>
+                                                    <Flyout >
+                                                        <StackPanel>
+                                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <Button Name="restartbtn7" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn7_Click" HorizontalAlignment="Left" Margin="17,390,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16"/>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </NavigationView>
+                        </Grid>
+                        <Grid x:Name="Home" Visibility="Visible">
+                            <TeachingTip Name="Teachingtip" Width="600">
+                                <TextBlock Name="teachtiptext1"></TextBlock>
+                            </TeachingTip>
+                            <ContentDialog x:Name="emailverifydialog" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+           PrimaryButtonText="Verify" PrimaryButtonClick="emailverifydialog_PrimaryButtonClick" IsPrimaryButtonEnabled="False"
+                       DefaultButton="Primary" RequestedTheme="Default"
+           CloseButtonText="Cancel">
+                                <ContentDialog.TitleTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="CompInfo Sign In Verification" Margin ="0, 0, 0, 0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ContentDialog.TitleTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock TextWrapping="WrapWholeWords" Text="A verification code has been sent to your email. Kindly enter the verification code below"></TextBlock>
+                                    <TextBox TextChanged="VerifyCode_TextChanged" MaxLength="6" Name="VerifyCode"  PlaceholderText="Enter here..."></TextBox>
+                                </StackPanel>
+                            </ContentDialog>
+                            <ContentDialog x:Name="errorsigndialog" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+           PrimaryButtonText="OK" IsPrimaryButtonEnabled="True"
+                       DefaultButton="Primary" RequestedTheme="Default"
+           CloseButtonText="Cancel">
+                                <ContentDialog.TitleTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="C:\Users\bnara\Pictures\OceanCyan Tech\CompInfo WinUI3\CompInfo\Resources\ErrorIcon.png" Width="40" Height="40" Margin="0, 0, 0,0"/>
+                                            <TextBlock Text="Invalid Sign In Values" Margin ="10, 0, 0, 0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ContentDialog.TitleTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock TextWrapping="WrapWholeWords" Text="The password or the username is incorrect"/>
+                                </StackPanel>
+                            </ContentDialog>
+                            <Grid Name="Case_NotSigned" Visibility="Visible">
+                                <TextBlock Margin="55, 30, 0,0" FontSize="24" Text="Sign in to view all your devices here!"></TextBlock>
+                                <Image VerticalAlignment="Top" Margin="355, 0, 0,0" Width="300" Height="300" Source="C:\Users\bnara\Pictures\OceanCyan Tech\CompInfo WinUI3\CompInfo\Resources\CompInfoIcon1028x1028.png"></Image>
+                                <Button Click="Button_Click_6" Margin="200, 100, 0,0" VerticalAlignment="Top" Style="{StaticResource AccentButtonStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE77B;" FontSize="16" FontFamily="Segoe Fluent Icons"></TextBlock>
+                                        <TextBlock Margin="7, 0, 0, 0" Text="Sign In"></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <TextBlock Margin="130, 150, 0,0"  Text="(or) sign up to create a new account"></TextBlock>
+                                <Button Click="Button_Click_7" Margin="198, 200, 0,0" VerticalAlignment="Top" Style="{StaticResource AccentButtonStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE8FA;" FontSize="16" FontFamily="Segoe Fluent Icons"></TextBlock>
+                                        <TextBlock Margin="7, 0, 0, 0" Text="Sign Up"></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                            <Grid Name="SignUpPanel" Visibility="Collapsed">
+                                <TeachingTip Name="PasswordVerifyWarn" Width="400" Target="{x:Bind Passwordtxt}">
+                                    <Grid>
+                                        <TextBlock Text ="" Name="passwordwarn"></TextBlock>
+                                    </Grid>
+                                </TeachingTip>
+                                <InfoBar Title="Sign Up Error" Height="40" VerticalAlignment="Bottom" Margin="0, 100, 0, 0" Name="infobar1"></InfoBar>
+                                <TextBlock Margin="55, 30, 0,0" FontSize="24" Text="Create an account to get the best out of CompInfo!"></TextBlock>
+                                <TextBlock Margin="55, 100, 0,0"  Text="Username:"></TextBlock>
+                                <TextBox Margin="125, 93, 0,0" TextChanged="TextBox_TextChanged" Name="txtusername" PlaceholderText="Enter an username..." Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250"></TextBox>
+                                <TextBlock Margin="55, 150, 0,0"  Text="Password:"></TextBlock>
+                                <PasswordBox IsPasswordRevealButtonEnabled="True" Name="Passwordtxt" PasswordChanged="PasswordBox_PasswordChanged" Margin="125, 145, 0,0" PlaceholderText="Type in a strong password..." Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250"></PasswordBox>
+                                <TextBlock Margin="55, 200, 0,0"  Text="Confirm Password:"></TextBlock>
+                                <PasswordBox  IsPasswordRevealButtonEnabled="True"  Name="ConfirmPasswordtxt" PasswordChanged="PasswordBox_PasswordChanged_1" Margin="175, 195, 0,0" PlaceholderText="Confirm your password..." Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250"></PasswordBox>
+                                <Button Name="PasswordVerify1" Click="Button_Click_8" Margin="385, 145, 0,0"  Content="❌"  HorizontalAlignment="Left" VerticalAlignment="Top" ></Button>
+                                <Button Name="backbtn" Click="backbtn_Click" Margin="10, 34, 0,0"  Content="&#xE72B;" FontFamily="Segoe Fluent Icons"  HorizontalAlignment="Left" VerticalAlignment="Top" ></Button>
+                                <Button Name="PasswordVerify2" Click="Button_Click_8" Margin="435, 195, 0,0" Content="❌" HorizontalAlignment="Left" VerticalAlignment="Top" ></Button>
+                                <TextBlock Margin="55, 250, 0,0"  Text="Email:"></TextBlock>
+                                <TextBox Name="Emailtxt" TextChanged="Emailtxt_TextChanged" Margin="95, 245, 0,0" PlaceholderText="Enter your email..." Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250"></TextBox>
+
+                                <Button Style="{StaticResource AccentButtonStyle}" Name="signupbtn" Click="signupbtn_Click" Margin="415, 295, 0,0" Content="Sign Up" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" ></Button>
+                                <ProgressRing Visibility="Collapsed" Name="Progress"  Margin="375, 295, 0,0" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" ></ProgressRing>
+                            </Grid>
+                            <Grid Name="SignInPanel" Visibility="Collapsed">
+                                <TeachingTip Name="PasswordVerifyWarn2" Width="400" Target="{x:Bind Passwordtxt}">
+                                    <Grid>
+                                        <TextBlock Text ="" Name="passwordwarn2"></TextBlock>
+                                    </Grid>
+                                </TeachingTip>
+                                <InfoBar Title="Sign In Error" Height="40" VerticalAlignment="Bottom" Margin="0, 100, 0, 0" Name="infobar2"></InfoBar>
+                                <TextBlock Margin="55, 30, 0,0" FontSize="24" Text="Sign in to get the best out of CompInfo!"></TextBlock>
+                                <TextBlock Margin="55, 100, 0,0"  Text="Username:"></TextBlock>
+                                <TextBox Margin="125, 93, 0,0" Name="txtusername2" PlaceholderText="Enter your username..." Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250"></TextBox>
+                                <TextBlock Margin="55, 150, 0,0"  Text="Password:"></TextBlock>
+                                <PasswordBox IsPasswordRevealButtonEnabled="False" Name="Passwordtxtsignin" PasswordChanged="PasswordBox_PasswordChanged" Margin="125, 145, 0,0" PlaceholderText="Enter your password..." Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250"></PasswordBox>
+                                <CheckBox Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"  Margin="385, 145, 0,0" Content="Show password" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250"></CheckBox>
+                                <Button Name="backbtn2" Click="backbtn2_Click" Margin="10, 34, 0,0"  Content="&#xE72B;" FontFamily="Segoe Fluent Icons"  HorizontalAlignment="Left" VerticalAlignment="Top" ></Button>
+                                <Button Style="{StaticResource AccentButtonStyle}" Name="signinbtn" Click="signinbtn_Click" Margin="306, 195, 0,0" Content="Sign In" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" ></Button>
+                                <CheckBox Name="rememberme" Checked="rememberme_Checked" Unchecked="rememberme_Unchecked" Margin="55, 235, 0,0" Content="Remember me the next time I open this app" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" ></CheckBox>
+                                <HyperlinkButton Visibility="Visible" Content="Forgot Password!"  Margin="40, 195, 0,0" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" ></HyperlinkButton>
+                            </Grid>
+                            <Grid Name="Case_SignedIn" Visibility="Collapsed">
+                                <TextBlock Name="welcometxt" Text="Welcome, " FontSize="24" Margin ="55, 30, 0,0"></TextBlock>
+                            </Grid>
+                        </Grid>
+                        <Grid x:Name="printinginfo" Visibility="Collapsed">
+                            <HyperlinkButton Click="HyperlinkButton_Click_1" Content="View Print Jobs" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60, 270, 0, 0"></HyperlinkButton>
+                            <TextBlock Name="PrintingDeviceHeader" HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text="Printing Device Unknown"  VerticalAlignment="Top" FontSize="20" />
+                            <ComboBox Name="ListPrintingDevs" SelectionChanged="ListPrintingDevs_SelectionChanged" HorizontalAlignment="Left" Margin="18,28,0,0" Text="Sound Device Unknown"  VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,110,0,0" TextWrapping="Wrap" Text="Name: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="printername"  HorizontalAlignment="Left" Margin="86,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn56" ToolTipService.ToolTip="Copy" Click="cpybtn56_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,150,0,0" TextWrapping="Wrap" Text="Port Name: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="portname"  HorizontalAlignment="Left" Margin="124,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" />
+                            <Button Name="cpybtn57" ToolTipService.ToolTip="Copy" Click="cpybtn57_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,190,0,0"  Text="Server Name:" TextWrapping="NoWrap" MaxLines="1"  Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="servername" Width="290"  Canvas.ZIndex="0"  HorizontalAlignment="Left" Margin="140,193,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn58" ToolTipService.ToolTip="Copy" Click="cpybtn58_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,230,0,0" TextWrapping="Wrap" Text="Driver:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock IsTextSelectionEnabled="True" Name="driver"  HorizontalAlignment="Left" Margin="80,232,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn59" ToolTipService.ToolTip="Copy" Click="cpybtn59_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Button Name="restartbtn8" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn8_Click" HorizontalAlignment="Left" Margin="17,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16"/>
+                        </Grid>
+                        <Grid x:Name="gpuinfo" Visibility="Collapsed">
+                            <TextBlock Name="GPUDeviceHeader" HorizontalAlignment="Left" Margin="18,68,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" FontSize="20" />
+                            <ComboBox Name="ListGPUDevs" SelectionChanged="ListGPUDevs_SelectionChanged" HorizontalAlignment="Left" Margin="18,28,0,0" Text="Sound Device Unknown"  VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,110,0,0" TextWrapping="Wrap" Text="Name: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="gpuname"  HorizontalAlignment="Left" Margin="86,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn60" ToolTipService.ToolTip="Copy" Click="cpybtn60_Click" HorizontalAlignment="Left" Margin="536,110,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,150,0,0" TextWrapping="Wrap" Text="Status: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="gpustatus"  HorizontalAlignment="Left" Margin="84,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn61" ToolTipService.ToolTip="Copy" Click="cpybtn61_Click" HorizontalAlignment="Left" Margin="536,150,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,190,0,0"  Text="Adapter RAM:" TextWrapping="NoWrap" MaxLines="1"  Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="adapterram" Width="290"  Canvas.ZIndex="0"  HorizontalAlignment="Left" Margin="150,193,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn62" ToolTipService.ToolTip="Copy" Click="cpybtn62_Click" HorizontalAlignment="Left" Margin="536,190,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,230,0,0" TextWrapping="Wrap" Text="Device ID:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="gpudevid"  HorizontalAlignment="Left" Margin="116,232,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn63" ToolTipService.ToolTip="Copy" Click="cpybtn63_Click" HorizontalAlignment="Left" Margin="536,230,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,270,0,0" TextWrapping="Wrap" Text="Monochrome:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="ismonochrome"  HorizontalAlignment="Left" Margin="146,273,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn64" ToolTipService.ToolTip="Copy" Click="cpybtn64_Click" HorizontalAlignment="Left" Margin="536,270,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,310,0,0" TextWrapping="Wrap" Text="Driver:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="driverversion"  HorizontalAlignment="Left" Margin="86,312,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="cpybtn65" ToolTipService.ToolTip="Copy" Click="cpybtn65_Click" HorizontalAlignment="Left" Margin="536,310,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE16F;" VerticalAlignment="Top" FontSize="16">
+                                <Button.Flyout>
+                                    <Flyout >
+                                        <StackPanel>
+                                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Copied ✔️"  />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Button Name="restartbtn9" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn9_Click" HorizontalAlignment="Left" Margin="17,350,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16"/>
+                        </Grid>
+                        <Grid   Name="networkinfo" Visibility="Collapsed">
+                            <Grid>
+                                <ContentDialog Title="" DefaultButton="Close"  CloseButtonText="OK" Name="Networkinfo">
+                                    <Grid>
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="adaptername"  HorizontalAlignment="Left" Margin="64,0,0,0" TextWrapping="Wrap" Text="d" VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="IP Address: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="ipaddress"  HorizontalAlignment="Left" Margin="106,40,0,0" TextWrapping="Wrap" Text="ds" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Default IP Gateway:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="defip"  HorizontalAlignment="Left" Margin="176,80,0,0" TextWrapping="Wrap" Text="s" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Adapter Type:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="adaptertype"  HorizontalAlignment="Left" Margin="126,120,0,0" TextWrapping="Wrap" Text="b" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,158,0,0" TextWrapping="Wrap" Text="Manufacturer:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="naman"  HorizontalAlignment="Left" Margin="126,160,0,0" TextWrapping="Wrap" Text="a" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,198,0,0" TextWrapping="Wrap" Text="Service Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="servicenamenetwork"  HorizontalAlignment="Left" Margin="130,200,0,0" TextWrapping="Wrap" Text="g" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                    </Grid>
+                                </ContentDialog>
+                                <Button Name="networkadapterinfo" ToolTipService.ToolTip="Copy" Click="networkadapterinfo_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE946;" VerticalAlignment="Top" FontSize="16">
+                                    </Button>
+                            </Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Select an item and click the info button to view its info:"   VerticalAlignment="Top" FontSize="16" />
+                            <ListView SelectionMode="Extended" Name="Networkitemsname"  HorizontalAlignment="Left"  Margin="12, 60, 0 ,0">
+
+                            </ListView>
+                            <Button Name="restartbtn10" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn10_Click" HorizontalAlignment="Left" Margin="486,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid x:Name="logicboardinfo" Visibility="Collapsed">
+                            <TextBlock HorizontalAlignment="Left" Margin="18,58,0,0" TextWrapping="Wrap" Text="Motherboard Name:"  Foreground="Gray"  VerticalAlignment="Top" FontSize="20" />
+                            <InfoBar HorizontalAlignment="Left" Margin="18,8,0,0" Height="252" Width="490" Title="Tip" IsOpen="True" Message="Select the text and right click to copy"    VerticalAlignment="Top"  />
+                            <TextBlock Name="motherboardname" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="206,62,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,98,0,0" TextWrapping="Wrap" Text="Motherboard Manufacturer:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="mbmanufacturer" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="269,102,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,138,0,0" TextWrapping="Wrap" Text="Motherboard Product:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="mbproduct" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="219,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,178,0,0" TextWrapping="Wrap" Text="Is Motherboard Replaceable:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="ismbreplace" IsTextSelectionEnabled="True"   HorizontalAlignment="Left" Margin="276,182,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,218,0,0" TextWrapping="Wrap" Text="Motherboard Serial Number:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="mbserialnumber" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="196,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,258,0,0" TextWrapping="Wrap" Text="BIOS Description:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="BiosDescription" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="176,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,298,0,0" TextWrapping="Wrap" Text="BIOS Current Language:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="BiosCurrentLanguage" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="236,302,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,338,0,0" TextWrapping="Wrap" Text="SMBIOS Version:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="SMBiosversion" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="176,342,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <TextBlock HorizontalAlignment="Left" Margin="18,378,0,0" TextWrapping="Wrap" Text="BIOS Version:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                            <TextBlock Name="Biosversion" IsTextSelectionEnabled="True"  HorizontalAlignment="Left" Margin="146,382,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" />
+                            <Button Name="restartbtn11" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn11_Click" HorizontalAlignment="Left" Margin="17,410,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid   Name="driverinfo" Visibility="Collapsed">
+                            <Grid>
+                                <ContentDialog Title="" DefaultButton="Close"  CloseButtonText="OK" Name="DRIVERinfo">
+                                    <ScrollViewer  >
+                                            <Grid     ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="drivername"  HorizontalAlignment="Left" Margin="64,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Description: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driverdescription"  HorizontalAlignment="Left" Margin="106,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Error Control:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="drivererrorcontrol"  HorizontalAlignment="Left" Margin="126,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Exit Code:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driverexitcode"  HorizontalAlignment="Left" Margin="96,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,158,0,0" TextWrapping="Wrap" Text="Path:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driverpathname"  HorizontalAlignment="Left" Margin="56,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,218,0,0" TextWrapping="Wrap" Text="Service Type:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driverservicetype"  HorizontalAlignment="Left" Margin="120,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,258,0,0" TextWrapping="Wrap" Text="Start Mode:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driverstartmode"  HorizontalAlignment="Left" Margin="110,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,298,0,0" TextWrapping="Wrap" Text="State:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driverstate"  HorizontalAlignment="Left" Margin="55,302,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,338,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driverstatus"  HorizontalAlignment="Left" Margin="65,342,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,378,0,0" TextWrapping="Wrap" Text="Is Stop Acceptable:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="driveracceptstop"  HorizontalAlignment="Left" Margin="175,380,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                    </Grid>
+                                    </ScrollViewer>
+                                </ContentDialog>
+                                <Button Name="driverinfobtn" ToolTipService.ToolTip="View info of selected driver" Click="driverinfobtn_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE946;" VerticalAlignment="Top" FontSize="16">
+                                </Button>
+                            </Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Select an item and click the info button to view its info:"   VerticalAlignment="Top" FontSize="16" />
+                            <ScrollViewer VerticalAlignment="Top" Height="330" Width="423" HorizontalAlignment="Left" Margin="12, 80, 0 ,0" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ListView Width="390" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top"  Name="Driveritemname"  HorizontalAlignment="Left"  Margin="0, 0, 0 ,0">
+                            </ListView>
+                            </ScrollViewer>
+                            <Button Name="restartbtn12" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn12_Click" HorizontalAlignment="Left" Margin="486,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid   Name="servicesinfo" Visibility="Collapsed">
+                            <Grid>
+                                <ContentDialog Title="" DefaultButton="Close"  CloseButtonText="OK" Name="SERVICEInfo">
+                                    <ScrollViewer  >
+                                        <Grid     ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="servicename"  HorizontalAlignment="Left" Margin="64,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Error Control:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="serviceerrorcontrol"  HorizontalAlignment="Left" Margin="126,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Exit Code:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="serviceexitcode"  HorizontalAlignment="Left" Margin="96,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Path:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="servicepathname"  HorizontalAlignment="Left" Margin="56,122,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,178,0,0" TextWrapping="Wrap" Text="Service Type:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="serviceservicetype"  HorizontalAlignment="Left" Margin="120,182,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,218,0,0" TextWrapping="Wrap" Text="Start Mode:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="servicestartmode"  HorizontalAlignment="Left" Margin="110,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,258,0,0" TextWrapping="Wrap" Text="State:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="servicestate"  HorizontalAlignment="Left" Margin="55,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,298,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="servicestatus"  HorizontalAlignment="Left" Margin="65,302,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,338,0,0" TextWrapping="Wrap" Text="Is Stop Acceptable:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="serviceacceptstop"  HorizontalAlignment="Left" Margin="175,340,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,388,0,0" TextWrapping="Wrap" Text="Description: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock  IsTextSelectionEnabled="True"  Name="servicedescription"  HorizontalAlignment="Left" Margin="116,390,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="16" />
+                                        </Grid>
+                                    </ScrollViewer>
+                                </ContentDialog>
+                                <Button Name="serviceinfobtn" ToolTipService.ToolTip="View info of selected service" Click="serviceinfobtn_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE946;" VerticalAlignment="Top" FontSize="16">
+                                </Button>
+                                <Button Name="launchservicesbtn" Click="launchservicesbtn_Click_1" HorizontalAlignment="Left" Margin="586,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE9F5;" ToolTipService.ToolTip="Launch the Win32 Services App" VerticalAlignment="Top" FontSize="16">
+                                </Button>
+                            </Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Select an item and click the info button to view its info:"   VerticalAlignment="Top" FontSize="16" />
+                            <ScrollViewer VerticalAlignment="Top"  Height="330" Width="423" HorizontalAlignment="Left" Margin="12, 80, 0 ,0" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ListView Width="390"  ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top"  Name="serviceitemname"  HorizontalAlignment="Left"  Margin="0, 0, 0 ,0">
+                                </ListView>
+                            </ScrollViewer>
+                            <Button Name="restartbtn13" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn13_Click" HorizontalAlignment="Left" Margin="486,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid   Name="processesinfo" Visibility="Collapsed">
+                            <Grid>
+                                    <ScrollViewer  >
+                                        <Grid  Name="InfoProcesses"  Visibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="320, 80, 0, 0">
+                                        <InfoBar Name="InfobarProcesses" IsOpen="False" VerticalAlignment="Top" HorizontalAlignment="Left"></InfoBar>
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="processname"  HorizontalAlignment="Left" Margin="64,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Process ID:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="processid"  HorizontalAlignment="Left" Margin="106,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Version:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="processversion"  HorizontalAlignment="Left" Margin="76,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Path:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="processpath"  HorizontalAlignment="Left" Margin="56,122,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,178,0,0" TextWrapping="Wrap" Text="Creation Date:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="processcreationdate"  HorizontalAlignment="Left" Margin="130,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,218,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="processstatus"  HorizontalAlignment="Left" Margin="65,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,258,0,0" TextWrapping="Wrap" Text="Priority:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="processpriority"  HorizontalAlignment="Left" Margin="75,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        </Grid>
+                                    </ScrollViewer>
+                                <Button Name="endtaskbtn" ToolTipService.ToolTip="End Selected Process" Click="endtaskbtn_Click" HorizontalAlignment="Left" Margin="336,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE106;" VerticalAlignment="Top" FontSize="16">
+                                    <Button.Flyout>
+                                        <Flyout x:Name="flyt">
+                                            <StackPanel>
+                                                <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All programs associated to this process will be terminated if this process is ended. Are you sure you want to end this selected process"  />
+                                                <Button Content="End Task" Click="Button_Click_19"></Button>
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <ToggleSplitButton Visibility="Collapsed" IsCheckedChanged="realtimeupdatetoggle_IsCheckedChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="436, 30, 0, 0" Name="realtimeupdatetoggle"  ToolTipService.ToolTip="Enabling this might consume more system resources. This toggle will auto turn off once you exit from this page">
+                                    <TextBlock x:Name="mySymbolIcon" Text="Real Time Updating"/>
+                                    <ToggleSplitButton.Flyout>
+                                        <Flyout Placement="Bottom">
+                                            <ListBox>
+                                                <ListBoxItem Content="Every 3 seconds"></ListBoxItem>
+                                                <ListBoxItem Content="Every 5 seconds"></ListBoxItem>
+                                                <ListBoxItem Content="Every 10 seconds"></ListBoxItem>
+                                            </ListBox>
+                                        </Flyout>
+                                    </ToggleSplitButton.Flyout>
+                                </ToggleSplitButton>
+                                <Button Name="launchtaskmanager" Click="launchtaskmanager_Click" HorizontalAlignment="Left" Margin="386,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE9D9;" ToolTipService.ToolTip="Launch the Task Manager App" VerticalAlignment="Top" FontSize="16">
+                                </Button>
+                            </Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Select an item to view its info:"   VerticalAlignment="Top" FontSize="16" />
+                            <AutoSuggestBox Height="32" Width="250" HorizontalAlignment="Left" SuggestionChosen="SearchProcesses_SuggestionChosen" Margin="20, 60, 0, 0" VerticalAlignment="Top" PlaceholderText="Search for processes..." QueryIcon="Find" Name="SearchProcesses" TextChanged="SearchProcesses_TextChanged" QuerySubmitted="SearchProcesses_QuerySubmitted"></AutoSuggestBox>
+                            <ScrollViewer VerticalAlignment="Top"  Height="330" Width="303" HorizontalAlignment="Left" Margin="12, 100, 0 ,0" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ListView Width="300" SelectionChanged="processitemsname_SelectionChanged" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top"  Name="processitemsname"  HorizontalAlignment="Left"  Margin="0, 0, 0 ,0">
+                                </ListView>
+                            </ScrollViewer>
+                            <Button Name="restartbtn14" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn14_Click" HorizontalAlignment="Left" Margin="286,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid   Name="printjobsinfo" Visibility="Visible">
+                            <Grid>
+                                <ScrollViewer  >
+                                    <Grid  Name="InfoPrintJobs"  Visibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="320, 80, 0, 0">
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Print Device:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="printerdevice"  HorizontalAlignment="Left" Margin="114,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Document:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="documentname"  HorizontalAlignment="Left" Margin="106,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True"  />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Size:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="documentsize"  HorizontalAlignment="Left" Margin="46,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Owner:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="owner"  HorizontalAlignment="Left" Margin="66,122,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,158,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="printstatus"  HorizontalAlignment="Left" Margin="65,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,198,0,0" TextWrapping="Wrap" Text="Pages:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="pages"  HorizontalAlignment="Left" Margin="65,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,238,0,0" TextWrapping="Wrap" Text="Time of Submission:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="timesubmitted"  HorizontalAlignment="Left" Margin="185,241,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                    </Grid>
+                                </ScrollViewer>
+                                <Button Name="launchprintersettings" Click="launchprintersettings_Click" HorizontalAlignment="Left" Margin="336,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE749;" ToolTipService.ToolTip="Open Printer Settings" VerticalAlignment="Top" FontSize="16">
+                                </Button>
+                            </Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Select an item to view its info:"   VerticalAlignment="Top" FontSize="16" />
+                            <AutoSuggestBox Height="32" Width="250" HorizontalAlignment="Left" SuggestionChosen="SearchPrintJobs_SuggestionChosen" Margin="20, 60, 0, 0" VerticalAlignment="Top" PlaceholderText="Search for print jobs..." QueryIcon="Find" Name="SearchPrintJobs" TextChanged="SearchPrintJobs_TextChanged" QuerySubmitted="SearchPrintJobs_QuerySubmitted"></AutoSuggestBox>
+                            <ScrollViewer VerticalAlignment="Top"  Height="330" Width="303" HorizontalAlignment="Left" Margin="12, 100, 0 ,0" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ListView Width="300" SelectionChanged="printerjobitemname_SelectionChanged" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top"  Name="printerjobitemname"  HorizontalAlignment="Left"  Margin="0, 0, 0 ,0">
+                                </ListView>
+                            </ScrollViewer>
+                            <Button Name="restartbtn15" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn15_Click" HorizontalAlignment="Left" Margin="286,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
+                            </Button>
+                        </Grid>
+                        <Grid Name="SearchSuggestions"  Visibility="Collapsed">
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin=" 140, 50, 0, 0" FontSize="23" Name="NoResultstxt"></TextBlock>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin=" 50, 30, 0, 0" Text="&#xE11A;" FontSize="83" FontFamily="Segoe Fluent Icons" Name="Magnifytxt"></TextBlock>
+                            <ListView HorizontalAlignment="Left" SelectionChanged="SearchSugg_SelectionChanged" VerticalAlignment="Top" Margin="50, 30, 0, 0" Name="SearchSugg"></ListView>
+                        </Grid>                 
+                    </Grid>
+                </Frame>
+            </ScrollViewer>
+        </NavigationView>
+        <Grid x:Name="InitialLoader">
+            <ProgressRing  VerticalAlignment="Center" HorizontalAlignment="Center" Height="70" Width="70" RenderTransformOrigin="0.48,0.533"/>
+        </Grid>
+    </Grid>
+</Window>
