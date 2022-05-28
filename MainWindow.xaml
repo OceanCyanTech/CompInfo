@@ -16,7 +16,7 @@
             <ContentDialog.TitleTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="C:\Users\bnara\Documents\OceanCyan Tech\CompInfo\Resources\CompInfoBetaIcon.png" Width="40" Height="40" Margin="0, 0, 0,0"/>
+                        <Image Source="Assets://CompInfoBetaIcon.png" Width="40" Height="40" Margin="0, 0, 0,0"/>
                         <TextBlock Text="CompInfo Beta" Margin ="10, 0, 0, 0"/>
                     </StackPanel>
                 </DataTemplate>
@@ -173,7 +173,7 @@
                                 <ContentDialog.TitleTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="C:\Users\bnara\Documents\OceanCyan Tech\CompInfo\Resources\CompInfoIcon.png" Width="40" Height="40" Margin="0, 0, 0,0"/>
+                                            <Image Source="Assets://CompInfoIcon.png" Width="40" Height="40" Margin="0, 0, 0,0"/>
                                             <TextBlock Text="About CompInfo" Margin ="10, 0, 0, 0"/>
                                         </StackPanel>
                                     </DataTemplate>
