@@ -1,12 +1,11 @@
 ﻿<Window
-    x:Class="CompInfo.MainWindow"
+    x:Class="CompInfoUI.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CompInfo"
+    xmlns:local="using:CompInfoUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    mc:Ignorable="d"
-   >
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
 
     <Grid Name="Das" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ContentDialog x:Name="joinbeta" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -184,11 +183,11 @@
                                     <TextBlock TextWrapping="WrapWholeWords" Text="© OceanCyan Tech"/>
                                 </StackPanel>
                             </ContentDialog>
-                            <HyperlinkButton Content="Help" Margin="40,578,0,0" VerticalAlignment="Top"/>
-                            <HyperlinkButton Content="Contribute" Margin="40,615,0,0" VerticalAlignment="Top"/>
+                            <HyperlinkButton Content="Help" Click="HyperlinkButton_Click_3" Margin="40,578,0,0" VerticalAlignment="Top"/>
+                            <HyperlinkButton Content="Contribute" Click="HyperlinkButton_Click_2" Margin="40,615,0,0" VerticalAlignment="Top"/>
                             <TextBlock x:Name="theddmelbl_Copy1" HorizontalAlignment="Left" Margin="50,690,0,0" TextWrapping="Wrap" Text="CompInfo Beta" VerticalAlignment="Top" FontSize="24"/>
                             <Button x:Name="joindevpre" Content="Join CompInfo Beta" Click="joindevpre_Click" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Left" Margin="50,750,0,0"  VerticalAlignment="Top"/>
-                            <HyperlinkButton Content="Feedback" Margin="40,795,0,0" VerticalAlignment="Top"/>
+                            <HyperlinkButton Content="Feedback" Click="HyperlinkButton_Click_4" Margin="40,795,0,0" VerticalAlignment="Top"/>
                         </Grid>
                         <Grid x:Name="osinfo" Visibility="Collapsed">
                             <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="OS Name:"  Foreground="Gray"  VerticalAlignment="Top" FontSize="20" />
@@ -1198,7 +1197,7 @@
                                     </Grid>
                                 </ContentDialog>
                                 <Button Name="networkadapterinfo" ToolTipService.ToolTip="Copy" Click="networkadapterinfo_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE946;" VerticalAlignment="Top" FontSize="16">
-                                    </Button>
+                                </Button>
                             </Grid>
                             <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Select an item and click the info button to view its info:"   VerticalAlignment="Top" FontSize="16" />
                             <ListView SelectionMode="Extended" Name="Networkitemsname"  HorizontalAlignment="Left"  Margin="12, 60, 0 ,0">
@@ -1234,28 +1233,28 @@
                             <Grid>
                                 <ContentDialog Title="" DefaultButton="Close"  CloseButtonText="OK" Name="DRIVERinfo">
                                     <ScrollViewer  >
-                                            <Grid     ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="drivername"  HorizontalAlignment="Left" Margin="64,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Description: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driverdescription"  HorizontalAlignment="Left" Margin="106,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Error Control:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="drivererrorcontrol"  HorizontalAlignment="Left" Margin="126,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Exit Code:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driverexitcode"  HorizontalAlignment="Left" Margin="96,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,158,0,0" TextWrapping="Wrap" Text="Path:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driverpathname"  HorizontalAlignment="Left" Margin="56,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,218,0,0" TextWrapping="Wrap" Text="Service Type:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driverservicetype"  HorizontalAlignment="Left" Margin="120,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,258,0,0" TextWrapping="Wrap" Text="Start Mode:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driverstartmode"  HorizontalAlignment="Left" Margin="110,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,298,0,0" TextWrapping="Wrap" Text="State:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driverstate"  HorizontalAlignment="Left" Margin="55,302,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,338,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driverstatus"  HorizontalAlignment="Left" Margin="65,342,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        <TextBlock HorizontalAlignment="Left" Margin="0,378,0,0" TextWrapping="Wrap" Text="Is Stop Acceptable:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                        <TextBlock Name="driveracceptstop"  HorizontalAlignment="Left" Margin="175,380,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                    </Grid>
+                                        <Grid     ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="drivername"  HorizontalAlignment="Left" Margin="64,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Description: " Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driverdescription"  HorizontalAlignment="Left" Margin="106,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Error Control:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="drivererrorcontrol"  HorizontalAlignment="Left" Margin="126,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Exit Code:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driverexitcode"  HorizontalAlignment="Left" Margin="96,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,158,0,0" TextWrapping="Wrap" Text="Path:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driverpathname"  HorizontalAlignment="Left" Margin="56,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,218,0,0" TextWrapping="Wrap" Text="Service Type:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driverservicetype"  HorizontalAlignment="Left" Margin="120,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,258,0,0" TextWrapping="Wrap" Text="Start Mode:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driverstartmode"  HorizontalAlignment="Left" Margin="110,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,298,0,0" TextWrapping="Wrap" Text="State:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driverstate"  HorizontalAlignment="Left" Margin="55,302,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,338,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driverstatus"  HorizontalAlignment="Left" Margin="65,342,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                            <TextBlock HorizontalAlignment="Left" Margin="0,378,0,0" TextWrapping="Wrap" Text="Is Stop Acceptable:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                            <TextBlock Name="driveracceptstop"  HorizontalAlignment="Left" Margin="175,380,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        </Grid>
                                     </ScrollViewer>
                                 </ContentDialog>
                                 <Button Name="driverinfobtn" ToolTipService.ToolTip="View info of selected driver" Click="driverinfobtn_Click" HorizontalAlignment="Left" Margin="536,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE946;" VerticalAlignment="Top" FontSize="16">
@@ -1264,7 +1263,7 @@
                             <TextBlock HorizontalAlignment="Left" Margin="18,28,0,0" TextWrapping="Wrap" Text="Select an item and click the info button to view its info:"   VerticalAlignment="Top" FontSize="16" />
                             <ScrollViewer VerticalAlignment="Top" Height="330" Width="423" HorizontalAlignment="Left" Margin="12, 80, 0 ,0" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
                                 <ListView Width="390" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top"  Name="Driveritemname"  HorizontalAlignment="Left"  Margin="0, 0, 0 ,0">
-                            </ListView>
+                                </ListView>
                             </ScrollViewer>
                             <Button Name="restartbtn12" Visibility="Visible" ToolTipService.ToolTip="Refresh Info" Click="restartbtn12_Click" HorizontalAlignment="Left" Margin="486,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE777;" VerticalAlignment="Top" FontSize="16">
                             </Button>
@@ -1312,25 +1311,25 @@
                         </Grid>
                         <Grid   Name="processesinfo" Visibility="Collapsed">
                             <Grid>
-                                    <ScrollViewer  >
-                                        <Grid  Name="InfoProcesses"  Visibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="320, 80, 0, 0">
+                                <ScrollViewer  >
+                                    <Grid  Name="InfoProcesses"  Visibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="320, 80, 0, 0">
                                         <InfoBar Name="InfobarProcesses" IsOpen="False" VerticalAlignment="Top" HorizontalAlignment="Left"></InfoBar>
-                                            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                            <TextBlock Name="processname"  HorizontalAlignment="Left" Margin="64,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                            <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Process ID:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                            <TextBlock Name="processid"  HorizontalAlignment="Left" Margin="106,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
-                                            <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Version:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                            <TextBlock Name="processversion"  HorizontalAlignment="Left" Margin="76,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                            <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Path:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                            <TextBlock Name="processpath"  HorizontalAlignment="Left" Margin="56,122,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
-                                            <TextBlock HorizontalAlignment="Left" Margin="0,178,0,0" TextWrapping="Wrap" Text="Creation Date:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                            <TextBlock Name="processcreationdate"  HorizontalAlignment="Left" Margin="130,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                            <TextBlock HorizontalAlignment="Left" Margin="0,218,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                            <TextBlock Name="processstatus"  HorizontalAlignment="Left" Margin="65,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                            <TextBlock HorizontalAlignment="Left" Margin="0,258,0,0" TextWrapping="Wrap" Text="Priority:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
-                                            <TextBlock Name="processpriority"  HorizontalAlignment="Left" Margin="75,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
-                                        </Grid>
-                                    </ScrollViewer>
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Name:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="processname"  HorizontalAlignment="Left" Margin="64,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,38,0,0" TextWrapping="Wrap" Text="Process ID:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="processid"  HorizontalAlignment="Left" Margin="106,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True"  />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,78,0,0" TextWrapping="Wrap" Text="Version:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="processversion"  HorizontalAlignment="Left" Margin="76,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,118,0,0" TextWrapping="Wrap" Text="Path:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="processpath"  HorizontalAlignment="Left" Margin="56,122,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" FontSize="16" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,178,0,0" TextWrapping="Wrap" Text="Creation Date:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="processcreationdate"  HorizontalAlignment="Left" Margin="130,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,218,0,0" TextWrapping="Wrap" Text="Status:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="processstatus"  HorizontalAlignment="Left" Margin="65,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                        <TextBlock HorizontalAlignment="Left" Margin="0,258,0,0" TextWrapping="Wrap" Text="Priority:" Foreground="Gray" VerticalAlignment="Top" FontSize="20" />
+                                        <TextBlock Name="processpriority"  HorizontalAlignment="Left" Margin="75,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="18" IsTextSelectionEnabled="True" />
+                                    </Grid>
+                                </ScrollViewer>
                                 <Button Name="endtaskbtn" ToolTipService.ToolTip="End Selected Process" Click="endtaskbtn_Click" HorizontalAlignment="Left" Margin="336,30,0,0" FontFamily="Segoe Fluent Icons" Content="&#xE106;" VerticalAlignment="Top" FontSize="16">
                                     <Button.Flyout>
                                         <Flyout x:Name="flyt">
@@ -1401,7 +1400,7 @@
                             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin=" 140, 50, 0, 0" FontSize="23" Name="NoResultstxt"></TextBlock>
                             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin=" 50, 30, 0, 0" Text="&#xE11A;" FontSize="83" FontFamily="Segoe Fluent Icons" Name="Magnifytxt"></TextBlock>
                             <ListView HorizontalAlignment="Left" SelectionChanged="SearchSugg_SelectionChanged" VerticalAlignment="Top" Margin="50, 30, 0, 0" Name="SearchSugg"></ListView>
-                        </Grid>                 
+                        </Grid>
                     </Grid>
                 </Frame>
             </ScrollViewer>

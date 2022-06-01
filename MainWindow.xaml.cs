@@ -35,7 +35,7 @@ using System.Text;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace CompInfo
+namespace CompInfoUI
 {
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
@@ -50,8 +50,20 @@ namespace CompInfo
             {
                 this.InitializeComponent();
                 LoadRAMInfo();
+                CheckforUpdates();
                 LoadSoundInfo();
                 LoadStuff();
+                LoadPrintingInfo();
+                LoadDisplayInfo();
+                LoadKeyboardInfo();
+                LoadPDInfo();
+                LoadNetworkInfo();
+                LoadMotherBoardInfo();
+                LoadDriverInfo();
+                LoadServicesInfo();
+                LoadProcessesInfo();
+                LoadPrintJobsInfo();
+
                 storagedevicestabs.SelectedItem = diskssd;
                 timer.Interval = new TimeSpan(0, 0, 1);
                 timer.Start();
@@ -59,8 +71,6 @@ namespace CompInfo
                 window = MainWindow.Current;
                 Current = this;
                 nvSample.SelectedItem = SysSum;
-                string conendirectory = Directory.GetCurrentDirectory() + "\\compinfosignremen.ocs.txt";
-
                 application = Application.Current;
                 string result = string.Empty;
                 string settingsdirectory = Directory.GetCurrentDirectory() + "\\settings.ocs.txt";
@@ -178,6 +188,27 @@ namespace CompInfo
                 File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
             }
         }
+        private async void CheckforUpdates()
+        {
+            try
+            {
+                WebClient webClient = new WebClient();
+                if (webClient.DownloadString("https://pastebin.com/raw/zj9pj0L8").Contains("NEXTVERSIONAVAILABLE"))
+                {
+                    Process.Start(new ProcessStartInfo("https://github.com/OceanCyanTech/CompInfo/releases") { UseShellExecute = true });
+                }
+            }
+            catch (Exception EX)
+            {
+                RecordofException(EX);
+            }
+        }
+
+        private void Dialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/OceanCyanTech/CompInfo/releases") { UseShellExecute = true });
+        }
+
         string errorlog;
         public int CountDown_Seconds = 2;
         private AppWindow m_AppWindow;
@@ -186,22 +217,6 @@ namespace CompInfo
             LoadDisks();
             try
             {
-                string conendirectory = Directory.GetCurrentDirectory() + "\\compinfosignremen.ocs.txt";
-                string pasendirectory = Directory.GetCurrentDirectory() + "\\compinfosignpaen.ocs.txt";
-                string usendirectory = Directory.GetCurrentDirectory() + "\\compinfosignsecuen.ocs.txt";
-                string reme = File.ReadAllText(conendirectory);
-                DecryptStuff(reme);
-                if (decrtext == "Remembermewhenisignincheckboxtrue")
-                {
-                    string pass = File.ReadAllText(pasendirectory);
-                    string user = File.ReadAllText(usendirectory);
-                    DecryptStuff(pass);
-                    Passwordtxtsignin.Password = decrtext;
-                    DecryptStuff(user);
-                    txtusername2.Text = decrtext;
-                    rememberme.IsChecked = true;
-                    SignIN();
-                }
                 LoadPrintingInfo();
                 LoadDisplayInfo();
                 LoadKeyboardInfo();
@@ -221,8 +236,8 @@ namespace CompInfo
         }
         private void LoadDisks()
         {
-            ListDiskDevs.Items.Clear();  
-            ListLDDevs.Items.Clear();  
+            ListDiskDevs.Items.Clear();
+            ListLDDevs.Items.Clear();
             ObjectQuery diskquery2 = new ObjectQuery("SELECT * FROM Win32_LogicalDisk");
             ManagementObjectSearcher objectSearcher2 = new ManagementObjectSearcher(diskquery2);
             foreach (ManagementObject item in objectSearcher2.Get())
@@ -453,7 +468,8 @@ namespace CompInfo
         }
         private void LoadPrintingInfo()
         {
-            try {
+            try
+            {
                 ListPrintingDevs.Items.Clear();
                 //Load Printer Devices
                 ObjectQuery SoundObject = new ObjectQuery("SELECT * FROM Win32_Printer");
@@ -464,11 +480,11 @@ namespace CompInfo
                 }
                 ListPrintingDevs.SelectedIndex = 0;
             }
-            catch(Exception EX)
+            catch (Exception EX)
             {
                 RecordofException(EX);
             }
-            }
+        }
         private void LoadNetworkInfo()
         {
             try
@@ -565,7 +581,7 @@ namespace CompInfo
                     listView2.Items.Add(obj["Caption"].ToString());
                 }
                 printerjobitemname.SelectedIndex = 0;
-                if(printerjobitemname.Items.Count == 0)
+                if (printerjobitemname.Items.Count == 0)
                 {
                     printerdevice.Text = "There are currently no print jobs!";
                     documentname.Text = "";
@@ -691,7 +707,7 @@ namespace CompInfo
                 {
                     ismbreplace.Text = "No";
                 }
-                if(mbserialnumber.Text == null)
+                if (mbserialnumber.Text == null)
                 {
                     mbserialnumber.Text = "Unable to access the serial number";
                 }
@@ -752,7 +768,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                 osinfo.Visibility = Visibility.Collapsed;
                 hardwaree.Visibility = Visibility.Collapsed;
                 softwaree.Visibility = Visibility.Collapsed;
-               driverinfo.Visibility = Visibility.Collapsed;
+                driverinfo.Visibility = Visibility.Collapsed;
                 syssummary.Visibility = Visibility.Collapsed;
                 raminfo.Visibility = Visibility.Collapsed;
                 cpuinfo.Visibility = Visibility.Collapsed;
@@ -777,7 +793,8 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                 settingspanel.Visibility = Visibility.Collapsed;
                 SearchSuggestions.Visibility = Visibility.Collapsed;
                 if (nvSample.SelectedItem == SysOS)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Visible;
@@ -793,13 +810,16 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
                     networkinfo.Visibility = Visibility.Collapsed;
                     logicboardinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == osinfoo)
-                { printjobsinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed;
                     nvSample.SelectedItem = SysOS;
                 }
                 else if (nvSample.SelectedItem == SysSum)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -810,9 +830,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     soundinfo.Visibility = Visibility.Collapsed; Home.Visibility = Visibility.Collapsed;
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed;
                     inputdevicesinfo.Visibility = Visibility.Collapsed; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardCPU)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     LoadCPUInfo();
@@ -823,9 +845,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     soundinfo.Visibility = Visibility.Collapsed;
                     cpuinfo.Visibility = Visibility.Visible; Home.Visibility = Visibility.Collapsed; inputdevicesinfo.Visibility = Visibility.Collapsed;
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardRAM)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     LoadRAMInfo();
@@ -837,9 +861,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     raminfo.Visibility = Visibility.Visible; Home.Visibility = Visibility.Collapsed;
                     inputdevicesinfo.Visibility = Visibility.Collapsed;
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == SysHard)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -850,9 +876,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     hardwaree.Visibility = Visibility.Visible;
                     inputdevicesinfo.Visibility = Visibility.Collapsed;
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == SysSoft)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
                     syssummary.Visibility = Visibility.Collapsed;
@@ -863,9 +891,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     hardwaree.Visibility = Visibility.Collapsed;
                     inputdevicesinfo.Visibility = Visibility.Collapsed;
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardSound)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -876,9 +906,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     hardwaree.Visibility = Visibility.Collapsed; Home.Visibility = Visibility.Collapsed;
                     inputdevicesinfo.Visibility = Visibility.Collapsed;
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardInputDevices)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -889,9 +921,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     hardwaree.Visibility = Visibility.Collapsed; Home.Visibility = Visibility.Collapsed;
                     inputdevicesinfo.Visibility = Visibility.Visible;
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardStorageDevices)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -902,9 +936,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     hardwaree.Visibility = Visibility.Collapsed; Home.Visibility = Visibility.Collapsed;
                     inputdevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed;
                     storagedevicesinfo.Visibility = Visibility.Visible; printinginfo.Visibility = Visibility.Collapsed; gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardPrinting)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -917,9 +953,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     storagedevicesinfo.Visibility = Visibility.Collapsed; logicboardinfo.Visibility = Visibility.Collapsed;
                     printinginfo.Visibility = Visibility.Visible;
                     gpuinfo.Visibility = Visibility.Collapsed; networkinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardGPU)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -934,9 +972,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     gpuinfo.Visibility = Visibility.Visible;
                     networkinfo.Visibility = Visibility.Collapsed;
                     logicboardinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardNetwork)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -951,9 +991,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     gpuinfo.Visibility = Visibility.Collapsed;
                     networkinfo.Visibility = Visibility.Visible;
                     logicboardinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == HardMotherBoard)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -968,9 +1010,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     gpuinfo.Visibility = Visibility.Collapsed;
                     networkinfo.Visibility = Visibility.Collapsed;
                     logicboardinfo.Visibility = Visibility.Visible;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == SoftDrivers)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Visible;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -986,9 +1030,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     gpuinfo.Visibility = Visibility.Collapsed;
                     networkinfo.Visibility = Visibility.Collapsed;
                     logicboardinfo.Visibility = Visibility.Collapsed;
-                    servicesinfo.Visibility = Visibility.Collapsed; }
+                    servicesinfo.Visibility = Visibility.Collapsed;
+                }
                 else if (nvSample.SelectedItem == SoftServices)
-                { printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed; processesinfo.Visibility = Visibility.Collapsed;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
                     osinfo.Visibility = Visibility.Collapsed;
@@ -1007,7 +1053,8 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     servicesinfo.Visibility = Visibility.Visible;
                 }
                 else if (nvSample.SelectedItem == SoftProcesses)
-                { printjobsinfo.Visibility = Visibility.Collapsed;
+                {
+                    printjobsinfo.Visibility = Visibility.Collapsed;
                     processesinfo.Visibility = Visibility.Visible;
                     driverinfo.Visibility = Visibility.Collapsed;
                     softwaree.Visibility = Visibility.Collapsed;
@@ -1655,34 +1702,12 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Case_NotSigned.Visibility = Visibility.Collapsed;
-                SignUpPanel.Visibility = Visibility.Collapsed;
-                SignInPanel.Visibility = Visibility.Visible;
-                cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" +Environment.CurrentDirectory + "\\CompInfoDatabaes.mdf; database=<database CompInfoDatabaes>  Integrated Security=True");
-                cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" +Environment.CurrentDirectory + "\\CompInfoDatabaes.mdf; database=<database CompInfoDatabaes>  Integrated Security=True");
-                cn.Open();
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
         }
-        SqlConnection cn = new SqlConnection();
-        SqlCommand cmd = new SqlCommand();
-        SqlDataReader dr;
 
         private void Button_Click_7(object sender, RoutedEventArgs e)
         {
             try
             {
-                Case_NotSigned.Visibility = Visibility.Collapsed;
-                SignUpPanel.Visibility = Visibility.Visible;
-                SignInPanel.Visibility = Visibility.Collapsed;
-                cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" +Environment.CurrentDirectory + "\\CompInfoDatabaes.mdf; database=<database CompInfoDatabaes>  Integrated Security=True");
-                cn.Open();
             }
             catch (Exception ex)
             {
@@ -1780,25 +1805,6 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            cmd = new SqlCommand("select * from LoginTable where Username='" + txtusername.Text + "'", cn);
-            dr = cmd.ExecuteReader();
-            if (dr.Read())
-            {
-                PasswordVerifyWarn.Target = txtusername;
-                passwordwarn.Text = "This username already exists!";
-                PasswordVerifyWarn.IsOpen = true;
-                infobar1.Message = "There are some errors that need to rechecked";
-                infobar1.Severity = InfoBarSeverity.Error;
-                infobar1.IsOpen = true;
-                infobar1.IsClosable = false;
-                dr.Close();
-            }
-            else
-            {
-                dr.Close();
-                infobar1.IsOpen = false;
-                PasswordVerifyWarn.IsOpen = false;
-            }
         }
 
         private void ListKeyboardDevs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2006,24 +2012,6 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private void emailverifydialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            try
-            {
-                cmd.CommandText = "INSERT INTO LoginTable (Username, Password, Email) VALUES(@Username,@Password,@Email)";
-                cmd.Parameters.AddWithValue("Username", txtusername.Text);
-                cmd.Parameters.AddWithValue("Password", Passwordtxt.Password);
-                cmd.Parameters.AddWithValue("Email", Emailtxt.Text);
-                cmd.Parameters.AddWithValue("Id", 1);
-                cmd.ExecuteNonQuery();
-                infobar1.Title = "Success";
-                infobar1.Message = "Your account has been successfully created! Please click the back button to sign in.";
-                infobar1.Severity = InfoBarSeverity.Success;
-                infobar1.IsOpen = true;
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
         }
         Random r = new Random();
         int randNum;
@@ -2060,26 +2048,6 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
         }
         private async void signupbtn_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                txtusername.Text = Regex.Replace(txtusername.Text, @"\s+", "");
-                cmd = new SqlCommand("select * from LoginTable where Username='" + txtusername.Text + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (infobar1.IsOpen == false && dr.Read() == false && email_validation().IsMatch(Emailtxt.Text) == true && PasswordVerify1.Content == "✔️" && PasswordVerify2.Content == "✔️")
-                {
-
-                    Progress.Visibility = Visibility.Visible;
-                    dr.Close();
-                    EmailSender();
-                    ContentDialogResult result = await emailverifydialog.ShowAsync();
-                }
-                dr.Close();
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
         }
 
         private void VerifyCode_TextChanged(object sender, TextChangedEventArgs e)
@@ -2104,185 +2072,14 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
             Case_NotSigned.Visibility = Visibility.Visible;
         }
         string username;
-        private async void SignIN()
-        {
-            try
-            {
-                txtusername2.Text = Regex.Replace(txtusername2.Text, @"\s+", "");
-                cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" +Environment.CurrentDirectory + "\\CompInfoDatabaes.mdf; database=<database CompInfoDatabaes>  Integrated Security=True");
-                cn.Open();
-                cmd = new SqlCommand("select * from LoginTable where username='" + txtusername2.Text + "' and password='" + Passwordtxtsignin.Password + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    if (rememberme.IsChecked == true)
-                    {
-                        EncryptPassword();
-                        EncryptUsername();
-                    }
-                    else
-                    {
-                        string settingsdirectory = Directory.GetCurrentDirectory() + "\\compinfosignpaen.ocs.txt";
-                        string settingsdirectory2 = Directory.GetCurrentDirectory() + "\\compinfosignsecuen.ocs.txt";
-                        File.WriteAllText(settingsdirectory, "");
-                        File.WriteAllText(settingsdirectory2, "");
-                    }
-                    Case_SignedIn.Visibility = Visibility.Visible;
-                    SignInPanel.Visibility = Visibility.Collapsed;
-                    welcometxt.Text = "Welcome, " + txtusername2.Text;
-                    username = txtusername2.Text;
-                    Case_NotSigned.Visibility = Visibility.Collapsed;
-                    Teachingtip.IsOpen = false;
-                }
-                else
-                {
-                    Teachingtip.Target = txtusername2;
-                    teachtiptext1.Text = "Password or username is incorrect";
-                    Teachingtip.IsOpen = true;
-                }
-                dr.Close();
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
-        }
         private async void signinbtn_Click(object sender, RoutedEventArgs e)
         {
-            SignIN();
-        }
-        private void EncryptPassword()
-        {
-            try
-            {
-                string textToEncrypt = Passwordtxtsignin.Password;
-                string ToReturn = "";
-                string publickey = "89223012";
-                byte[] secretkeyByte =
-                {
-           0x11, 0x02, 0x93, 0x04, 0x05, 0x06, 0x07, 0x08,
-                0x19, 0x10, 0x12, 0x12, 0x13, 0x74, 0x15, 0x18
-            }; byte[] publickeyByte = { };
-                publickeyByte = System.Text.Encoding.UTF8.GetBytes(publickey); ; MemoryStream ms = null;
-                CryptoStream cs = null;
-                byte[] inputbyteArray = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
-                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-                {
-                    ms = new MemoryStream();
-                    cs = new CryptoStream(ms, des.CreateEncryptor(publickeyByte, secretkeyByte), CryptoStreamMode.Write);
-                    cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                    cs.FlushFinalBlock();
-                    ToReturn = Convert.ToBase64String(ms.ToArray());
-                }
-                rem = ToReturn;
-                string settingsdirectory = Directory.GetCurrentDirectory() + "\\compinfosignpaen.ocs.txt";
-                File.WriteAllText(settingsdirectory, rem);
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
-        }
-        private void EncryptUsername()
-        {
-            try
-            {
-                string textToEncrypt = txtusername2.Text;
-                string ToReturn = "";
-                string publickey = "89223012";
-                byte[] secretkeyByte =
-                {
-           0x11, 0x02, 0x93, 0x04, 0x05, 0x06, 0x07, 0x08,
-                0x19, 0x10, 0x12, 0x12, 0x13, 0x74, 0x15, 0x18
-            }; byte[] publickeyByte = { };
-                publickeyByte = System.Text.Encoding.UTF8.GetBytes(publickey); ; MemoryStream ms = null;
-                CryptoStream cs = null;
-                byte[] inputbyteArray = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
-                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-                {
-                    ms = new MemoryStream();
-                    cs = new CryptoStream(ms, des.CreateEncryptor(publickeyByte, secretkeyByte), CryptoStreamMode.Write);
-                    cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                    cs.FlushFinalBlock();
-                    ToReturn = Convert.ToBase64String(ms.ToArray());
-                }
-                rem = ToReturn;
-                string settingsdirectory = Directory.GetCurrentDirectory() + "\\compinfosignsecuen.ocs.txt";
-                File.WriteAllText(settingsdirectory, rem);
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
         }
         private void rememberme_Checked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                string textToEncrypt = "Remembermewhenisignincheckboxtrue";
-                string ToReturn = "";
-                string publickey = "89223012";
-                byte[] secretkeyByte =
-                {
-           0x11, 0x02, 0x93, 0x04, 0x05, 0x06, 0x07, 0x08,
-                0x19, 0x10, 0x12, 0x12, 0x13, 0x74, 0x15, 0x18
-            }; byte[] publickeyByte = { };
-                publickeyByte = System.Text.Encoding.UTF8.GetBytes(publickey); ; MemoryStream ms = null;
-                CryptoStream cs = null;
-                byte[] inputbyteArray = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
-                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-                {
-                    ms = new MemoryStream();
-                    cs = new CryptoStream(ms, des.CreateEncryptor(publickeyByte, secretkeyByte), CryptoStreamMode.Write);
-                    cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                    cs.FlushFinalBlock();
-                    ToReturn = Convert.ToBase64String(ms.ToArray());
-                }
-                rem = ToReturn;
-                string settingsdirectory = Directory.GetCurrentDirectory() + "\\compinfosignremen.ocs.txt";
-                File.WriteAllText(settingsdirectory, rem);
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
         }
         private void rememberme_Unchecked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                string textToEncrypt = "Remembermewhenisignincheckboxfalse";
-                string ToReturn = "";
-                string publickey = "89223012";
-                byte[] secretkeyByte =
-                {
-                0x11, 0x02, 0x93, 0x04, 0x05, 0x06, 0x07, 0x08,
-                0x19, 0x10, 0x12, 0x12, 0x13, 0x74, 0x15, 0x18
-            }; byte[] publickeyByte = { };
-                publickeyByte = System.Text.Encoding.UTF8.GetBytes(publickey); ; MemoryStream ms = null;
-                CryptoStream cs = null;
-                byte[] inputbyteArray = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
-                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-                {
-                    ms = new MemoryStream();
-                    cs = new CryptoStream(ms, des.CreateEncryptor(publickeyByte, secretkeyByte), CryptoStreamMode.Write);
-                    cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                    cs.FlushFinalBlock();
-                    ToReturn = Convert.ToBase64String(ms.ToArray());
-                }
-                rem = ToReturn;
-                string settingsdirectory = Directory.GetCurrentDirectory() + "\\compinfosignremen.ocs.txt";
-                File.WriteAllText(settingsdirectory, rem);
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
         }
 
         private void backbtn2_Click(object sender, RoutedEventArgs e)
@@ -2319,7 +2116,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     File.WriteAllText(settingsdirectory, "");
                     string settingsdirectory2 = Directory.GetCurrentDirectory() + "\\compinfosignsecuen.ocs.txt";
                     File.WriteAllText(settingsdirectory2, "");
-                 
+
                 }
             }
             catch (Exception ex)
@@ -2336,39 +2133,11 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private async void AcctDetailsbtn_Click_1(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                string oString = "Select * from LoginTable where Username='" + username + "'";
-                SqlCommand oCmd = new SqlCommand(oString, cn);
-                string password = "";
-                string email = "";
-
-                using (dr = oCmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        password = dr["Password"].ToString();
-                        email = dr["Email"].ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
         }
 
         private void Button_Click_10(object sender, RoutedEventArgs e)
         {
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                errorlog += DateTime.Now + ":: " + ex.Message + Environment.NewLine;
-                File.WriteAllText(@"C:\Users\bnara\Documents\log.txt", errorlog);
-            }
+         
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
@@ -2389,7 +2158,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private void storagedevicestabs_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if(storagedevicestabs.SelectedItem == drivessd)
+            if (storagedevicestabs.SelectedItem == drivessd)
             {
                 DisksInfo.Visibility = Visibility.Collapsed;
                 DrivesInfo.Visibility = Visibility.Visible;
@@ -2436,7 +2205,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
             }
             catch (Exception ex)
             {
-           RecordofException(ex);
+                RecordofException(ex);
             }
         }
         private void RecordofException(Exception exceptionstring)
@@ -2573,7 +2342,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                             {
                                 string Size = item["Size"].ToString();
                                 var Siz2 = Double.Parse(Size);
-                                totalsize = Siz2/1e+9;
+                                totalsize = Siz2 / 1e+9;
                                 drivesize.Text = (Siz2 / 1e+9).ToString("#.##") + " GB";
                                 drivesizeoccupy.Maximum = (Siz2 / 1e+9);
                                 drivesizeoccupy.IsIndeterminate = false;
@@ -2589,7 +2358,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                                 string Size2 = item["FreeSpace"].ToString();
                                 var Siz3 = Double.Parse(Size2);
                                 var totalusedspace = totalsize - (Siz3 / 1e+9);
-                                drivesizeoccupy.Value = Siz3/1e+9;
+                                drivesizeoccupy.Value = Siz3 / 1e+9;
                                 availspace.Text = (Siz3 / 1e+9).ToString("#.##") + " GB";
                                 usedspace.Text = (Siz3 / 1e+9).ToString("#.##") + " GB available";
                             }
@@ -2600,7 +2369,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                             if (item["VolumeName"] != null)
                             {
                                 volumename.Text = item["VolumeName"].ToString();
-                                if(volumename.Text == "")
+                                if (volumename.Text == "")
                                 {
                                     volumename.Text = "Inaccessible Data";
                                 }
@@ -2752,7 +2521,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private void ListGPUDevs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(ListGPUDevs.SelectedIndex != -1)
+            if (ListGPUDevs.SelectedIndex != -1)
             {
                 ObjectQuery diskquery2 = new ObjectQuery("SELECT * FROM Win32_VideoController");
                 ManagementObjectSearcher objectSearcher2 = new ManagementObjectSearcher(diskquery2);
@@ -2829,7 +2598,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private async void networkadapterinfo_Click(object sender, RoutedEventArgs e)
         {
-            if(Networkitemsname.SelectedIndex != -1)
+            if (Networkitemsname.SelectedIndex != -1)
             {
                 Networkinfo.Title = Networkitemsname.SelectedItem.ToString();
                 ObjectQuery diskquery2 = new ObjectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration");
@@ -2838,7 +2607,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                 {
                     if (Networkitemsname.SelectedItem.ToString() == (item["Caption"]).ToString())
                     {
-                        if(item["Caption"] != null)
+                        if (item["Caption"] != null)
                         {
                             adaptername.Text = item["Caption"].ToString();
                         }
@@ -3011,7 +2780,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
         {
             nvSample.SelectedItem = SoftServices;
         }
-        
+
         private async void launchservicesbtn_Click_1(object sender, RoutedEventArgs e)
         {
             Process CmdProcess = new Process();
@@ -3021,7 +2790,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
             CmdProcess.StartInfo.RedirectStandardInput = true;
             CmdProcess.StartInfo.RedirectStandardOutput = true;
             CmdProcess.StartInfo.RedirectStandardError = true;
-            CmdProcess.StartInfo.Arguments = "/c " + "services.msc"; 
+            CmdProcess.StartInfo.Arguments = "/c " + "services.msc";
             CmdProcess.Start();
             CmdProcess.StandardOutput.ReadToEnd();
             CmdProcess.WaitForExit();
@@ -3095,7 +2864,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
         ContentDialog dialog = new ContentDialog();
         private async void endtaskbtn_Click(object sender, RoutedEventArgs e)
         {
-      
+
         }
         ListView listView = new ListView();
         ListView listView2 = new ListView();
@@ -3157,7 +2926,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private void realtimeupdatetoggle_IsCheckedChanged(ToggleSplitButton sender, ToggleSplitButtonIsCheckedChangedEventArgs args)
         {
-            if(realtimeupdatetoggle.IsChecked == true)
+            if (realtimeupdatetoggle.IsChecked == true)
             {
                 realtimeupdatertimer.Interval = new TimeSpan(0, 0, 1);
                 realtimeupdatertimer.Start();
@@ -3198,8 +2967,8 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                     {
                         printerdevice.Text = obj["Name"].ToString();
                         documentname.Text = obj["Document"].ToString();
-                        documentsize.Text = (Double.Parse( obj["Size"].ToString())/1e+6).ToString("#.##") + " MB";
-                        
+                        documentsize.Text = (Double.Parse(obj["Size"].ToString()) / 1e+6).ToString("#.##") + " MB";
+
                         owner.Text = obj["Owner"].ToString();
                         string input = obj["TimeSubmitted"].ToString();
                         string year = input.Substring(0, 4);
@@ -3216,7 +2985,7 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                         {
                             printstatus.Text = "Unknown";
                         }
-                        if(printstatus.Text == "1")
+                        if (printstatus.Text == "1")
                         {
                             printstatus.Text = "Paused";
                         }
@@ -3366,13 +3135,28 @@ new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
         private void SearchSugg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(SearchSugg.SelectedIndex != -1)
-            SelectionChosen(SearchSugg.SelectedItem.ToString());
+            if (SearchSugg.SelectedIndex != -1)
+                SelectionChosen(SearchSugg.SelectedItem.ToString());
         }
 
         private void joinbeta_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            Process.Start(new ProcessStartInfo("https://groups.google.com/g/compinfo-beta") { UseShellExecute = true});
+            Process.Start(new ProcessStartInfo("https://groups.google.com/g/compinfo-beta") { UseShellExecute = true });
+        }
+
+        private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/OceanCyanTech/CompInfo") { UseShellExecute = true });
+        }
+
+        private void HyperlinkButton_Click_3(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/OceanCyanTech/CompInfo/issues") { UseShellExecute = true });
+        }
+
+        private void HyperlinkButton_Click_4(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://forms.gle/eoiXdodq3yURTyXZ6") { UseShellExecute = true });
         }
     }
 }
