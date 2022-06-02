@@ -2,7 +2,8 @@
 
 This app is a modern version of the classic win32 System Information. Use it see detailed information about your computer, its hardware components and software.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This app is a modern version of the classic win32 System Information. Use it see detailed information about your computer, its hardware components and software.
+
 
 ### Markdown
 
